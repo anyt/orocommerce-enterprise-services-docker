@@ -1,0 +1,56 @@
+version: '2.2'
+services:
+    mail:
+        image: 'schickling/mailcatcher:latest'
+        ports:
+            - '${MAILCATCHER_UI_PORT}:1080'
+            - '${MAILCATCHER_PORT}:1025'
+        restart: on-failure
+    amqp:
+        build:
+            context: .docker/rabbitmq@3.6
+        ports:
+            - '${RABBITMQ_PORT}:5672'
+        environment:
+            - RABBITMQ_DEFAULT_USER=oro_mq_user
+            - RABBITMQ_DEFAULT_PASS=oro_mq_pass
+        restart: on-failure
+    redis:
+        build:
+            context: .docker/redis@5/
+        ports:
+            - '${REDIS_PORT}:6379'
+        restart: on-failure
+    elasticsearch:
+        image: 'docker.elastic.co/elasticsearch/elasticsearch-oss:7.6.1'
+        ports:
+            - '${ELASTICSEARCH_PORT}:9200'
+        environment:
+            - cluster.name=docker-cluster
+            - bootstrap.memory_lock=true
+            - 'ES_JAVA_OPTS=-Xms512m -Xmx512m'
+            - discovery.type=single-node
+            - http.port=9200
+        volumes:
+            - 'elasticsearch:/usr/share/elasticsearch/data'
+            - './.docker/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml'
+        restart: on-failure
+    sql:
+        image: 'postgres:9.6-alpine'
+        ports:
+            - '${SQL_PORT}:5432'
+        environment:
+            - POSTGRES_ROOT_PASSWORD=oro_db_pass
+            - POSTGRES_DB=oro_db
+            - POSTGRES_USER=oro_db_user
+            - POSTGRES_PASSWORD=oro_db_pass
+        volumes:
+            - './.docker/postgres@9.6/sql/uuid-ossp.sql:/docker-entrypoint-initdb.d/00-uuid-ossp.sql:ro'
+            - 'database:/var/lib/postgresql/data'
+        restart: on-failure
+        
+volumes:
+    elasticsearch:
+        driver: local
+    database:
+        driver: local

@@ -1,0 +1,53 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_pgsql
+    database_host: 127.0.0.1
+    database_port: 10432
+    database_name: oro_db
+    database_user: oro_db_user
+    database_password: oro_db_pass
+    database_driver_options: {  }
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_port: 10083
+    mailer_encryption: null
+    mailer_user: null
+    mailer_password: null
+    websocket_bind_address: 0.0.0.0
+    websocket_bind_port: 8080
+    websocket_frontend_host: '*'
+    websocket_frontend_port: 8080
+    websocket_frontend_path: ''
+    websocket_backend_host: '*'
+    websocket_backend_port: 8080
+    websocket_backend_path: ''
+    websocket_backend_transport: tcp
+    websocket_backend_ssl_context_options: {  }
+    search_engine_name: elastic_search
+    search_engine_host: 127.0.0.1
+    search_engine_port: 10200
+    search_engine_index_prefix: oro_search
+    search_engine_username: null
+    search_engine_password: null
+    search_engine_ssl_verification: null
+    search_engine_ssl_cert: null
+    search_engine_ssl_cert_password: null
+    search_engine_ssl_key: null
+    search_engine_ssl_key_password: null
+    website_search_engine_index_prefix: oro_website_search
+    web_backend_prefix: /admin
+    session_handler: session.handler.native_file
+    secret: ThisTokenIsNotSoSecretChangeIt
+    installed: '2020-05-06T15:18:11-04:00'
+    assets_version: 3df75297
+    assets_version_strategy: time_hash
+    enterprise_licence: null
+    message_queue_transport: amqp
+    message_queue_transport_config:
+        host: 127.0.0.1
+        port: 10673
+        user: oro_mq_user
+        password: oro_mq_pass
+        vhost: /
+    enable_price_sharding: false
+    deployment_type: null
